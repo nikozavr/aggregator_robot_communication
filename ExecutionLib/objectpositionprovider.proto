@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service ObjectPositionProvider {
+	rpc GetObjectsPositions (EmptyMessage) returns (stream ObjectPosition) {}
+}
+
+message EmptyMessage {
+
+}
+
+message ObjectPosition{
+	string name = 1;
+	double x = 2;
+	double y = 3;
+	double z = 4;
+}

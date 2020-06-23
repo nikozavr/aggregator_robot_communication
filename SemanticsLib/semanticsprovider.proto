@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service SemanticsProvider {
+	rpc GetSemantics (Empty) returns (stream SemanticsEvent) {}
+}
+
+message Empty {
+
+}
+
+message SemanticsEvent{
+	string name = 1;
+}
