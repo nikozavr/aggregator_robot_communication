@@ -12,7 +12,7 @@ namespace Aggregator
 
         static readonly List<string> _events = new List<string>() { "face appeared", "face disappeared", "object appeared", "object desappeared" };
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var semanticsEventsChannel = System.Threading.Channels.Channel.CreateUnbounded<SemanticsEvent>();
             var positionsEventsChannel = System.Threading.Channels.Channel.CreateUnbounded<ObjectPosition>();
@@ -62,9 +62,10 @@ namespace Aggregator
 
             cancellationTokenSource.Cancel();
 
-            semanticsServer.ShutdownAsync().Wait();
+            semanticsEventsChannel.Writer.Complete();
+            positionsEventsChannel.Writer.Complete();
 
-            generateSemanticsTask.Wait();
+            await semanticsServer.ShutdownAsync();
         }
     }
 }
