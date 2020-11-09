@@ -29,12 +29,31 @@ namespace Aggregator
                     await semanticsEventsChannel.Writer.WriteAsync(new SemanticsEvent()
                     {
                         EventType = (SemanticsEvent.Types.EventType)random.Next(Enum.GetNames(typeof(SemanticsEvent.Types.EventType)).Length),//SemanticsEvent.Types.EventType.Moving,
-                        EventProperties = { },
+                        EventProperties = { new Property()
+                        {
+                            PropertyName = "test1",
+                            Value = random.Next(1200)
+                        },
+                        new Property(){
+                            PropertyName = "test2",
+                            Value = random.Next(1200)
+                        }
+                        },
                         EventParticipants = { new Participant()
                         {
                             Id = Convert.ToUInt16(random.Next(100)),
                             Role = (Participant.Types.Role)random.Next(Enum.GetNames(typeof(Participant.Types.Role)).Length),
-                            Type = (Participant.Types.Type)random.Next(Enum.GetNames(typeof(Participant.Types.Type)).Length)
+                            Type = (Participant.Types.Type)random.Next(Enum.GetNames(typeof(Participant.Types.Type)).Length),
+                            ParticipantProperties = { new Property()
+                                {
+                                    PropertyName = "test1",
+                                    Value = random.Next(1200)
+                                },
+                                new Property(){
+                                    PropertyName = "test2",
+                                    Value = random.Next(1200)
+                                }
+                            },
                         }}
                     }, cancellationTokenSource.Token);
                 }
