@@ -20,7 +20,7 @@ message SemanticsEvent{
 }
 
 message Property {
-	uint32 id = 1;
+	string property_name = 1;
 	float value = 2;
 }
 

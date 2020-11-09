@@ -21,7 +21,7 @@ namespace RobotSemantics
                 Console.WriteLine("  Properties:");
                 foreach (var eventProperty in reply.ResponseStream.Current.EventProperties)
                 {
-                    Console.WriteLine($"    {eventProperty.Id} - {eventProperty.Value}");
+                    Console.WriteLine($"    {eventProperty.PropertyName} - {eventProperty.Value}");
                 }
                 Console.WriteLine("  Participants:");
                 foreach (var eventParticipant in reply.ResponseStream.Current.EventParticipants)
@@ -31,7 +31,7 @@ namespace RobotSemantics
                     Console.WriteLine($"    Type - {eventParticipant.Type.ToString()}");
                     foreach (var participantProperty in eventParticipant.ParticipantProperties)
                     {
-                        Console.WriteLine($"       {participantProperty.Id} - {participantProperty.Value}");
+                        Console.WriteLine($"       {participantProperty.PropertyName} - {participantProperty.Value}");
                     }
                     Console.WriteLine("    ----");
                 }
