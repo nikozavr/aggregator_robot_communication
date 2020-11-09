@@ -26,7 +26,17 @@ namespace Aggregator
                     int index = random.Next(_events.Count);
                     string createdEvent = _events [index];
                     Console.WriteLine($"Event created: {createdEvent}");
-                    await semanticsEventsChannel.Writer.WriteAsync(new SemanticsEvent() { Name = createdEvent }, cancellationTokenSource.Token);
+                    await semanticsEventsChannel.Writer.WriteAsync(new SemanticsEvent()
+                    {
+                        EventType = (SemanticsEvent.Types.EventType)random.Next(Enum.GetNames(typeof(SemanticsEvent.Types.EventType)).Length),//SemanticsEvent.Types.EventType.Moving,
+                        EventProperties = { },
+                        EventParticipants = { new Participant()
+                        {
+                            Id = Convert.ToUInt16(random.Next(100)),
+                            Role = (Participant.Types.Role)random.Next(Enum.GetNames(typeof(Participant.Types.Role)).Length),
+                            Type = (Participant.Types.Type)random.Next(Enum.GetNames(typeof(Participant.Types.Type)).Length)
+                        }}
+                    }, cancellationTokenSource.Token);
                 }
             }, cancellationTokenSource.Token);
 

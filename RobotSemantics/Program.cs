@@ -17,7 +17,25 @@ namespace RobotSemantics
 
             while (await reply.ResponseStream.MoveNext())
             {
-                Console.WriteLine($"Get event: {reply.ResponseStream.Current.Name}");
+                Console.WriteLine($"Get event: {reply.ResponseStream.Current.EventType.ToString()}");
+                Console.WriteLine("  Properties:");
+                foreach (var eventProperty in reply.ResponseStream.Current.EventProperties)
+                {
+                    Console.WriteLine($"    {eventProperty.Id} - {eventProperty.Value}");
+                }
+                Console.WriteLine("  Participants:");
+                foreach (var eventParticipant in reply.ResponseStream.Current.EventParticipants)
+                {
+                    Console.WriteLine($"    Id - {eventParticipant.Id}");
+                    Console.WriteLine($"    Role - {eventParticipant.Role.ToString()}");
+                    Console.WriteLine($"    Type - {eventParticipant.Type.ToString()}");
+                    foreach (var participantProperty in eventParticipant.ParticipantProperties)
+                    {
+                        Console.WriteLine($"       {participantProperty.Id} - {participantProperty.Value}");
+                    }
+                    Console.WriteLine("    ----");
+                }
+                Console.WriteLine();
             }
 
             channel.ShutdownAsync().Wait();

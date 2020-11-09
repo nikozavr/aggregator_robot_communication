@@ -9,5 +9,34 @@ message Empty {
 }
 
 message SemanticsEvent{
-	string name = 1;
+	enum EventType {
+		Moving = 0;
+		Locating = 1;
+		Holding = 2;
+	};
+	EventType event_type = 1;
+	repeated Property event_properties = 2;
+	repeated Participant event_participants = 3;
+}
+
+message Property {
+	uint32 id = 1;
+	float value = 2;
+}
+
+message Participant {
+	uint32 id = 1;
+	enum Type {
+		Human = 0;
+		Robot = 1;
+		TangramFigure = 2;
+		Vegetable = 3;
+	};
+	Type type = 2;
+	enum Role {
+		Subject = 0;
+		Instrument = 1;
+	};
+	Role role = 3;
+	repeated Property participant_properties = 4;
 }
